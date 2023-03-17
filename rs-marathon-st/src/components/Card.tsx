@@ -1,13 +1,22 @@
 import React from 'react';
+import './card.scss';
 
-class Card extends React.Component {
+interface CardProps {
+  img: string;
+  title: string;
+  price: number;
+}
+
+class Card extends React.Component<CardProps, {}> {
   render() {
     return (
-      <>
-        <h1>Card</h1>
-        <img src="#" alt="" />
-        <p>Price</p>
-      </>
+      <div className="card-container">
+        <img src={this.props.img} alt="" />
+        <h3>{this.props.title}</h3>
+        <p>
+          Price per tour: <span>{this.props.price}$</span>
+        </p>
+      </div>
     );
   }
 }

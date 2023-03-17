@@ -1,13 +1,13 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import './404.scss';
 
 class NotFound extends React.Component {
   render() {
     return (
-      <>
-        <h1>404 page</h1>
-        <Link to="/">GO HOME</Link>
-      </>
+      <div className="notFound-wrapper">
+        <h1>Oops!</h1>
+        <span>404 - page not found</span>
+      </div>
     );
   }
 }
