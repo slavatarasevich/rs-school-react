@@ -1,24 +1,38 @@
 import React from 'react';
+import CardList from '../components/CardsList';
 
 import './home.scss';
-import Header from '../components/Header';
-import data from '../data/data.json';
 
 class Home extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: "testName"
+    }
+    console.log(props);
+  }
+
+click(){
+  this.setState{
+    { name: "Slava"}
+   
+  }
+}
+
+
+inputHandler(){
+  set
+}
   render() {
+
+
     return (
       <div className="home-container">
         <h1>Home page</h1>
-        <input type="text" placeholder="Search" />
-        <div>
-          {data.map((item, i) => (
-            <li key={i}>
-              <img src={item.img} alt="" />
-              <p>{item.title}</p>
-              <span>{item.price}$ per trip</span>
-            </li>
-          ))}
-        </div>
+        {blah}
+        <input type="text" onChange={this.inputHandler} placeholder="Search" />
+        <button onClick={this.click}></button>
+        <CardList />
       </div>
     );
   }
