@@ -1,6 +1,40 @@
 [
-  { "img": "", "title": "Santa Monica", "price": "100" },
-  { "img": "", "title": "Bel Air", "price": "78" },
-  { "img": "", "title": "Santa Cruise", "price": "60" },
-  { "img": "", "title": "Riviera", "price": "110" }
+  {
+    "img": "./src/assets/imgs/big-sur.png",
+    "title": "Big Sour",
+    "price": "100"
+  },
+  {
+    "img": "./src/assets/imgs/fort-mayers.png",
+    "title": "Fort Mayers",
+    "price": "78"
+  },
+  { "img": "./src/assets/imgs/madrid.png", "title": "Madrid", "price": "60" },
+  {
+    "img": "./src/assets/imgs/niagara-falls.jpg",
+    "title": "Niagara Falls",
+    "price": "110"
+  },
+  {
+    "img": "./src/assets/imgs/prescott.png",
+    "title": "Prescott",
+    "price": "110"
+  },
+  {
+    "img": "./src/assets/imgs/san-francisco.jpg",
+    "title": "San-Francisco",
+    "price": "130"
+  },
+  {
+    "img": "./src/assets/imgs/st-joseph.png",
+    "title": "St-Joseph",
+    "price": "110"
+  },
+  { "img": "./src/assets/imgs/tucson.png", "title": "Tucson", "price": "67" },
+
+  {
+    "img": "./src/assets/imgs/washington-dc.jpg",
+    "title": "Washington DC",
+    "price": "140"
+  }
 ]

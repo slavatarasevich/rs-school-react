@@ -1,6 +1,7 @@
 import React from 'react';
 
 import './home.scss';
+import Header from '../components/Header';
 import data from '../data/data.json';
 
 class Home extends React.Component {
@@ -12,9 +13,9 @@ class Home extends React.Component {
         <div>
           {data.map((item, i) => (
             <li key={i}>
-              {item.img}
-              {item.title}
-              {item.price}
+              <img src={item.img} alt="" />
+              <p>{item.title}</p>
+              <span>{item.price}$ per trip</span>
             </li>
           ))}
         </div>
