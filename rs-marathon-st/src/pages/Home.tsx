@@ -1,31 +1,30 @@
 import React from 'react';
 import CardList from '../components/CardsList';
-
+import data from '../data/data.json';
 import './home.scss';
 
-//НУЖНО ЛИ ДЕЛАТЬ ПУСТЫЕ ПРОПС ДЛЯ ТИПИЗАЦИИ?
+type Data = { img: string; title: string; price: number }[];
 
-class Home extends React.Component<{}, { value: string | null }> {
+class Home extends React.Component<unknown, { value: string; dataList: Data }> {
   constructor(props: {} | Readonly<{}>) {
     super(props);
     this.state = {
       value: '',
+      dataList: [],
     };
-    this.inputHandler = this.inputHandler.bind(this);
   }
 
-  inputHandler(e: React.FormEvent) {
+  inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ value: e.target.value });
-    console.log(this.state.value);
-  }
+  };
 
   componentDidMount() {
-    const keyInput = localStorage.getItem('key');
-    this.setState({ value: keyInput });
+    const keyInput = localStorage.getItem('keyInput');
+    this.setState({ value: keyInput ?? '' });
+    this.setState({ dataList: data });
   }
 
   componentWillUnmount() {
-    console.log('unmounted');
     localStorage.setItem('keyInput', this.state.value);
   }
 
@@ -39,8 +38,7 @@ class Home extends React.Component<{}, { value: string | null }> {
           value={this.state.value}
           placeholder="Search"
         />
-        <CardList />
-        {this.state.value}
+        <CardList data={this.state.dataList} />
       </div>
     );
   }

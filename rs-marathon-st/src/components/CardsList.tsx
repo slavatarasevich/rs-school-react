@@ -1,20 +1,25 @@
 import React from 'react';
-import data from '../data/data.json';
-import Card from './Card';
+import Card from './Card/index';
 import './cardsList.scss';
 
-class CardList extends React.Component<{}, {}> {
-  render() {
-    return (
-      <div className="cardList-wrapper">
-        {data.map((el, index) => {
-          return (
-            <Card key={index} img={el.img} title={el.title} price={el.price} />
-          );
-        })}
-      </div>
-    );
-  }
+interface CardListProps {
+  data: Array<{
+    img: string;
+    title: string;
+    price: number;
+  }>;
+}
+
+function CardList(props: CardListProps) {
+  return (
+    <div className="cardList-wrapper">
+      {props.data.map((el, index) => {
+        return (
+          <Card key={index} img={el.img} title={el.title} price={el.price} />
+        );
+      })}
+    </div>
+  );
 }
 
 export default CardList;
