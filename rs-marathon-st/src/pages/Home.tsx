@@ -3,36 +3,44 @@ import CardList from '../components/CardsList';
 
 import './home.scss';
 
-class Home extends React.Component {
-  constructor(props) {
+//НУЖНО ЛИ ДЕЛАТЬ ПУСТЫЕ ПРОПС ДЛЯ ТИПИЗАЦИИ?
+
+class Home extends React.Component<{}, { value: string | null }> {
+  constructor(props: {} | Readonly<{}>) {
     super(props);
     this.state = {
-      name: "testName"
-    }
-    console.log(props);
+      value: '',
+    };
+    this.inputHandler = this.inputHandler.bind(this);
   }
 
-click(){
-  this.setState{
-    { name: "Slava"}
-   
+  inputHandler(e: React.FormEvent) {
+    this.setState({ value: e.target.value });
+    console.log(this.state.value);
   }
-}
 
+  componentDidMount() {
+    const keyInput = localStorage.getItem('key');
+    this.setState({ value: keyInput });
+  }
 
-inputHandler(){
-  set
-}
+  componentWillUnmount() {
+    console.log('unmounted');
+    localStorage.setItem('keyInput', this.state.value);
+  }
+
   render() {
-
-
     return (
       <div className="home-container">
         <h1>Home page</h1>
-        {blah}
-        <input type="text" onChange={this.inputHandler} placeholder="Search" />
-        <button onClick={this.click}></button>
+        <input
+          type="text"
+          onChange={this.inputHandler}
+          value={this.state.value}
+          placeholder="Search"
+        />
         <CardList />
+        {this.state.value}
       </div>
     );
   }
