@@ -1,12 +1,13 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Home from './pages/Home';
-import About from './pages/About';
 import Header from './components/Header';
+import Home from './pages/Home/Home';
+import About from './pages/About/About';
+import NotFound from './pages/NotFound/NotFound';
 
-const NotFound = React.lazy(() => import('./pages/404'));
-
-///ToDo home about lazy!
+// const Home = React.lazy(() => import('./pages/Home/Home'));
+// const About = React.lazy(() => import('./pages/About/About'));
+// const NotFound = React.lazy(() => import('./pages/NotFound/NotFound'));
 
 class App extends React.Component {
   render() {

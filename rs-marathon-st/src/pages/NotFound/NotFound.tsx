@@ -1,6 +1,4 @@
-import React from 'react';
-import './404.scss';
-console.log('not found');
+import './style.scss';
 function NotFound() {
   return (
     <div className="notFound-wrapper">

@@ -1,6 +1,4 @@
-import React from 'react';
-import './about.scss';
-
+import './style.scss';
 function About() {
   return (
     <div className="about-wrapper">

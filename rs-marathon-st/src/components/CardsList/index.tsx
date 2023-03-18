@@ -1,8 +1,8 @@
 import React from 'react';
-import Card from './Card/index';
-import './cardsList.scss';
+import Card from '../Card/index';
+import './style.scss';
 
-interface CardListProps {
+interface CardsListProps {
   data: Array<{
     img: string;
     title: string;
@@ -10,7 +10,7 @@ interface CardListProps {
   }>;
 }
 
-function CardList(props: CardListProps) {
+function CardList(props: CardsListProps) {
   return (
     <div className="cardList-wrapper">
       {props.data.map((el, index) => {

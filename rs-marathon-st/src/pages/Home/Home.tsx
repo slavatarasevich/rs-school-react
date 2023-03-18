@@ -1,7 +1,7 @@
 import React from 'react';
-import CardList from '../components/CardsList';
-import data from '../data/data.json';
-import './home.scss';
+import CardsList from '../../components/CardsList';
+import data from '../../mock/travel-data.json';
+import './style.scss';
 
 type Data = { img: string; title: string; price: number }[];
 
@@ -38,7 +38,7 @@ class Home extends React.Component<unknown, { value: string; dataList: Data }> {
           value={this.state.value}
           placeholder="Search"
         />
-        <CardList data={this.state.dataList} />
+        <CardsList data={this.state.dataList} />
       </div>
     );
   }
