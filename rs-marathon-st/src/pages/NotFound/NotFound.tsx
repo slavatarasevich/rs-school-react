@@ -1,4 +1,5 @@
 import './style.scss';
+
 function NotFound() {
   return (
     <div className="notFound-wrapper">

@@ -1,22 +1,20 @@
+/* eslint-disable react/destructuring-assignment */
 import React from 'react';
 import CardsList from '../../components/CardsList';
-import data from '../../mock/travel-data.json';
+import data from '../../mock/fakeData.json';
 import './style.scss';
 
-type Data = { img: string; title: string; price: number }[];
+type Data = { id: number; img: string; title: string; price: number }[];
 
 class Home extends React.Component<unknown, { value: string; dataList: Data }> {
-  constructor(props: {} | Readonly<{}>) {
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  constructor(props: {} | Readonly<unknown>) {
     super(props);
     this.state = {
       value: '',
       dataList: [],
     };
   }
-
-  inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ value: e.target.value });
-  };
 
   componentDidMount() {
     const keyInput = localStorage.getItem('keyInput');
@@ -27,6 +25,10 @@ class Home extends React.Component<unknown, { value: string; dataList: Data }> {
   componentWillUnmount() {
     localStorage.setItem('keyInput', this.state.value);
   }
+
+  inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ value: e.target.value });
+  };
 
   render() {
     return (

@@ -7,16 +7,10 @@ class Header extends React.Component {
     return (
       <div className="header-wrapper">
         <nav>
-          <NavLink
-            to="/"
-            className={({ isActive }) => (isActive ? 'link-active' : 'link')}
-          >
+          <NavLink to="/" className={({ isActive }) => (isActive ? 'link-active' : 'link')}>
             Home
           </NavLink>
-          <NavLink
-            to="/about"
-            className={({ isActive }) => (isActive ? 'link-active' : 'link')}
-          >
+          <NavLink to="/about" className={({ isActive }) => (isActive ? 'link-active' : 'link')}>
             About us
           </NavLink>
         </nav>
