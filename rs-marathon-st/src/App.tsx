@@ -4,6 +4,7 @@ import Header from './components/Header';
 
 const Home = React.lazy(() => import('./pages/Home/Home'));
 const About = React.lazy(() => import('./pages/About/About'));
+const Form = React.lazy(() => import('./pages/Form/index'));
 const NotFound = React.lazy(() => import('./pages/NotFound/NotFound'));
 
 class App extends React.Component {
@@ -15,6 +16,7 @@ class App extends React.Component {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
+            <Route path="/form" element={<Form />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>

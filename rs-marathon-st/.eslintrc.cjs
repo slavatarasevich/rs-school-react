@@ -9,6 +9,7 @@ module.exports = {
     'airbnb/hooks',
     'plugin:react/recommended',
     'plugin:@typescript-eslint/recommended',
+    'prettier',
   ],
   overrides: [],
   parser: '@typescript-eslint/parser',
@@ -16,7 +17,7 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module',
     project: 'tsconfig.json',
-    tsconfigRootDir: 'C:/Users/user/Documents/rs/rs-school-react/rs-marathon-st/',
+    tsconfigRootDir: __dirname,
   },
   plugins: ['react', '@typescript-eslint', 'prettier'],
   rules: {

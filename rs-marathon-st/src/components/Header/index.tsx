@@ -10,6 +10,9 @@ class Header extends React.Component {
           <NavLink to="/" className={({ isActive }) => (isActive ? 'link-active' : 'link')}>
             Home
           </NavLink>
+          <NavLink to="/form" className={({ isActive }) => (isActive ? 'link-active' : 'link')}>
+            Form
+          </NavLink>
           <NavLink to="/about" className={({ isActive }) => (isActive ? 'link-active' : 'link')}>
             About us
           </NavLink>
