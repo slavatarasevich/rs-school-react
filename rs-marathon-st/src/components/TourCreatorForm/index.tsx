@@ -10,7 +10,7 @@ class TourCreatorForm extends Component {
     this.typeTour = ['Beach', 'Medical', 'Cultural'];
     this.radioRef = createRef();
     this.checkBoxRef = createRef();
-    this.checkBoxRef.current = 'false';
+    this.fileInputRef = createRef();
   }
 
   onSubmit = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -20,7 +20,8 @@ class TourCreatorForm extends Component {
       this.inputDateRef.current.value,
       this.selectValueRef.current.value,
       this.radioRef.current.value,
-      this.checkBoxRef.current.value
+      this.checkBoxRef.current
+      // this.fileInputRef.current
     );
   };
 
@@ -29,15 +30,41 @@ class TourCreatorForm extends Component {
     this.selectValueRef.current.value = e.target.value;
   };
 
-  radioOnChange = (e) => {
+  radioOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-    this.radioRef.current = e.target.value;
+    this.radioRef.current.value = e.target.value;
   };
 
-  checkboxOnChange = (e) => {
+  checkboxOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-    this.checkBoxRef.current.checked = e.target.checked;
+    this.checkBoxRef.current = e.target.checked;
   };
+
+  // fileOnChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   e.preventDefault();
+  //   this.fileInputRef.current = e.target.files[0].name;
+
+  // const formData = new FormData();
+  // formData.append('file', this.fileInputRef.current.files[0]);
+  // fetch('api/upload', {
+  //   method: 'POST',
+  //   body: formData,
+  // })
+  //   .then((res) => {
+  //     if (!res.ok) {
+  //       throw new Error('Network response was not ok');
+  //     }
+  //     return res.json();
+  //   })
+  //   .then((data) => {
+  //     console.log(data);
+  //   })
+  //   .catch((error) => {
+  //     console.log('THere was a problem with fetch operation');
+  //   });
+  // .then(res=> console.log(res.data))
+  // this.fileInputRef.current = this.fileInputRef.current.files[0].name;
+  // };
 
   render() {
     return (
@@ -65,11 +92,11 @@ class TourCreatorForm extends Component {
             ))}
           </select>
 
-          {/* ------------------/ RADIO /------------------------------------------ -----*/}
+          {/* ------------------/ RADIO /-----------------------------------------------*/}
 
           <div className="radio-group">
             <p>Kids are allowed?</p>
-            <label>
+            <label htmlFor="radio-yes">
               Yes
               <input
                 type="radio"
@@ -79,7 +106,7 @@ class TourCreatorForm extends Component {
                 value="yes"
               />
             </label>
-            <label>
+            <label htmlFor="radio-no">
               No
               <input
                 type="radio"
@@ -91,20 +118,20 @@ class TourCreatorForm extends Component {
             </label>
           </div>
 
-          {/* ------------------/ CHECK BOX /--------------------------------------- ----*/}
+          {/* ------------------/ CHECK BOX /-------------------------------------------*/}
 
-          <label for="scas-approval">
-            <input
-              type="checkbox"
-              id="scas-approval"
-              onClick={this.checkboxOnChange}
-              value="true"
-              checked={this.checkBoxRef}
-            />
+          <label htmlFor="scas-approval">
+            <input type="checkbox" id="scas-approval" onChange={this.checkboxOnChange} />
             SCAS approved
           </label>
-
-          <input type="file" accept="image/*" id="upload" />
+          {/* ------------------/ FILE UPLOAD /-------------------------------------------*/}
+          {/* <input
+            type="file"
+            ref={this.fileInputRef}
+            accept="image/*"
+            onChange={this.fileOnChangeHandler}
+            id="upload"
+          /> */}
           <button type="submit">Create tour</button>
         </form>
       </div>
