@@ -10,6 +10,7 @@ export interface TourCardsListProps {
     type: string;
     kidsAllowed: string;
     scas: string;
+    imgPath: object;
   }>;
 }
 
@@ -24,6 +25,7 @@ function TourCardsList(props: TourCardsListProps) {
           type={el.selectValue}
           kidsAllowed={el.selectedR}
           scas={el.checkBoxValue}
+          imgPath={el.imgPath}
         />
       ))}
     </div>

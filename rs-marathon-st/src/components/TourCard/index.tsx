@@ -7,18 +7,24 @@ export interface Props {
   type: string;
   kidsAllowed: string;
   scas: string;
+  imgPath: object;
 }
 class TourCard extends Component<Props> {
   render() {
     return (
       <div className="tourCard-container">
         <h1>{this.props.title}</h1>
-        <p>Available from: {this.props.date}</p>
-        <span>Tour type: {this.props.type}</span>
-        <span>Kids are allowed: {this.props.kidsAllowed}</span>
-        <span className="scas-approval">
-          {this.props.scas ? 'SCAS approved' : 'Not approved by SCAS'}
-        </span>
+        <div className="text-info">
+          <p>Available from: {this.props.date}</p>
+          <span>Tour type: {this.props.type}</span>
+          <br />
+          <span>Kids are allowed: {this.props.kidsAllowed}</span>
+          <br />
+          <span className="scas-approval">
+            {this.props.scas ? 'SCAS approved' : 'Not approved by SCAS'}
+          </span>
+        </div>
+        <img src={this.props.imgPath} alt="" />
       </div>
     );
   }

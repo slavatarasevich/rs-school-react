@@ -16,11 +16,14 @@ class TourCreatorForm extends Component {
 
   private radio2Ref: React.RefObject<HTMLInputElement>;
 
+  private inputFileRef: React.RefObject<HTMLInputElement>;
+
   constructor(props) {
     super(props);
     this.state = {
       dataFromForm: [],
       selectedRadio: null,
+      imageSrc: null,
     };
     this.inputTourRef = createRef();
     this.inputDateRef = createRef();
@@ -28,6 +31,7 @@ class TourCreatorForm extends Component {
     this.checkBoxRef = createRef();
     this.radio1Ref = createRef();
     this.radio2Ref = createRef();
+    this.inputFileRef = createRef();
     this.typeTour = ['Beach', 'Medical', 'Cultural', 'Adventure', 'WildLife'];
     this.inputNameValue = '';
     this.inputDateValue = '';
@@ -49,6 +53,8 @@ class TourCreatorForm extends Component {
     this.radioValue2 = radioValue2;
     const selectedR = this.state.selectedRadio;
     this.selectedR = selectedR;
+    const imgPath = this.state.imageSrc;
+    this.imgPath = imgPath;
 
     const updatedData = [
       ...this.state.dataFromForm,
@@ -58,6 +64,7 @@ class TourCreatorForm extends Component {
         selectValue,
         selectedR,
         checkBoxValue,
+        imgPath,
       },
     ];
 
@@ -88,7 +95,24 @@ class TourCreatorForm extends Component {
     this.checkBoxRef.current = e.target.checked;
   };
 
+  fileOnChangeHandler = () => {
+    const file = this.inputFileRef.current.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        this.setState({ imageSrc: reader.result });
+      };
+
+      reader.readAsDataURL(file);
+    } else {
+      this.setState({ imageSrc: null });
+    }
+  };
+
   render() {
+    console.log(this.state.imageSrc);
     return (
       <div className="form-page">
         <div className="form-wrapper">
@@ -164,7 +188,7 @@ class TourCreatorForm extends Component {
 
             <input
               type="file"
-              ref={this.fileInputRef}
+              ref={this.inputFileRef}
               accept="image/*"
               onChange={this.fileOnChangeHandler}
               id="upload"
