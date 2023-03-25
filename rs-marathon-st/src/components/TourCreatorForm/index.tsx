@@ -1,139 +1,180 @@
 import React, { Component, createRef } from 'react';
 import './style.scss';
 
+import TourCardsList from '../TourCardsList';
+
 class TourCreatorForm extends Component {
+  private inputTourRef: React.RefObject<HTMLInputElement>;
+
+  private inputDateRef: React.RefObject<HTMLInputElement>;
+
+  private selectValueRef: React.RefObject<HTMLInputElement>;
+
+  private checkBoxRef: React.RefObject<HTMLInputElement>;
+
+  private radio1Ref: React.RefObject<HTMLInputElement>;
+
+  private radio2Ref: React.RefObject<HTMLInputElement>;
+
   constructor(props) {
     super(props);
+    this.state = {
+      dataFromForm: [],
+      selectedRadio: null,
+    };
     this.inputTourRef = createRef();
     this.inputDateRef = createRef();
     this.selectValueRef = createRef();
-    this.typeTour = ['Beach', 'Medical', 'Cultural'];
-    this.radioRef = createRef();
     this.checkBoxRef = createRef();
-    this.fileInputRef = createRef();
+    this.radio1Ref = createRef();
+    this.radio2Ref = createRef();
+    this.typeTour = ['Beach', 'Medical', 'Cultural', 'Adventure', 'WildLife'];
+    this.inputNameValue = '';
+    this.inputDateValue = '';
   }
 
   onSubmit = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-    console.log(
-      this.inputTourRef.current.value,
-      this.inputDateRef.current.value,
-      this.selectValueRef.current.value,
-      this.radioRef.current.value,
-      this.checkBoxRef.current
-      // this.fileInputRef.current
-    );
+    const inputNameValue = this.inputTourRef.current.value;
+    this.inputNameValue = inputNameValue;
+    const inputDateValue = this.inputDateRef.current.value;
+    this.inputDateValue = inputDateValue;
+    const selectValue = this.selectValueRef.current.value;
+    this.selectValue = selectValue;
+    const checkBoxValue = this.checkBoxRef.current;
+    this.checkBoxValue = checkBoxValue;
+    const radioValue1 = this.radio1Ref.current;
+    this.radioValue1 = radioValue1;
+    const radioValue2 = this.radio2Ref.current;
+    this.radioValue2 = radioValue2;
+    const selectedR = this.state.selectedRadio;
+    this.selectedR = selectedR;
+
+    const updatedData = [
+      ...this.state.dataFromForm,
+      {
+        inputNameValue,
+        inputDateValue,
+        selectValue,
+        selectedR,
+        checkBoxValue,
+      },
+    ];
+
+    this.setState({
+      dataFromForm: updatedData,
+    });
+  };
+
+  onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    this.inputTourRef.current.value = e.target.value;
   };
 
   selectHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
     this.selectValueRef.current.value = e.target.value;
   };
 
-  radioOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    this.radioRef.current.value = e.target.value;
+  radioOnChange = () => {
+    if (this.radio1Ref.current.checked) {
+      this.setState({ selectedRadio: this.radio1Ref.current.value });
+    } else if (this.radio2Ref.current.checked) {
+      this.setState({ selectedRadio: this.radio2Ref.current.value });
+    } else {
+      this.setState({ selectedRadio: null });
+    }
   };
 
-  checkboxOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
+  checkBoxOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     this.checkBoxRef.current = e.target.checked;
   };
 
-  // fileOnChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   e.preventDefault();
-  //   this.fileInputRef.current = e.target.files[0].name;
-
-  // const formData = new FormData();
-  // formData.append('file', this.fileInputRef.current.files[0]);
-  // fetch('api/upload', {
-  //   method: 'POST',
-  //   body: formData,
-  // })
-  //   .then((res) => {
-  //     if (!res.ok) {
-  //       throw new Error('Network response was not ok');
-  //     }
-  //     return res.json();
-  //   })
-  //   .then((data) => {
-  //     console.log(data);
-  //   })
-  //   .catch((error) => {
-  //     console.log('THere was a problem with fetch operation');
-  //   });
-  // .then(res=> console.log(res.data))
-  // this.fileInputRef.current = this.fileInputRef.current.files[0].name;
-  // };
-
   render() {
     return (
-      <div className="form-wrapper">
-        <form onSubmit={this.onSubmit} id="form">
-          <h1>Tour creator</h1>
+      <div className="form-page">
+        <div className="form-wrapper">
+          <form onSubmit={this.onSubmit} id="form">
+            <h1>Tour creator</h1>
 
-          {/* ------------------/ INPUT NAME & DATE /------------------------------------*/}
+            {/* ------------------/ INPUT NAME & DATE /------------------------------------*/}
 
-          <input type="text" id="text" placeholder="tour name" ref={this.inputTourRef} />
-          <input type="date" id="date" ref={this.inputDateRef} />
+            <input
+              type="text"
+              id="text"
+              placeholder="tour name"
+              ref={this.inputTourRef}
+              onChange={this.onChangeInput}
+            />
+            <input type="date" id="date" ref={this.inputDateRef} />
 
-          {/* ------------------/ DROP DOWN /--------------------------------------------*/}
+            {/* ------------------/ DROP DOWN /--------------------------------------------*/}
 
-          <select
-            name=""
-            id="dropdown-type_tour"
-            onChange={this.selectHandler}
-            ref={this.selectValueRef}
-          >
-            {this.typeTour.map((el, index) => (
-              <option key={index} value={el}>
-                {el}
-              </option>
-            ))}
-          </select>
+            <select
+              name=""
+              id="dropdown__type-tour"
+              onChange={this.selectHandler}
+              ref={this.selectValueRef}
+            >
+              {this.typeTour.map((el, index) => (
+                <option key={index} value={el}>
+                  {el}
+                </option>
+              ))}
+            </select>
 
-          {/* ------------------/ RADIO /-----------------------------------------------*/}
+            {/* ------------------/ Radio Buttons /--------------------------------------------*/}
 
-          <div className="radio-group">
-            <p>Kids are allowed?</p>
-            <label htmlFor="radio-yes">
-              Yes
+            <div className="radio-group">
+              <p>Kids are allowed?</p>
+              <label htmlFor="radio-yes">
+                Yes
+                <input
+                  type="radio"
+                  name="radio-group"
+                  value="Yes"
+                  onChange={this.radioOnChange}
+                  ref={this.radio1Ref}
+                />
+              </label>
+              <label htmlFor="radio-no">
+                No
+                <input
+                  type="radio"
+                  name="radio-group"
+                  value="No"
+                  onChange={this.radioOnChange}
+                  ref={this.radio2Ref}
+                />
+              </label>
+            </div>
+
+            {/* ------------------/ Check box /--------------------------------------------*/}
+
+            <label className="scas-approval" htmlFor="scas-approval">
               <input
-                type="radio"
-                onChange={this.radioOnChange}
-                checked={this.inputTourRef === 'yes'}
-                ref={this.radioRef}
-                value="yes"
+                type="checkbox"
+                ref={this.checkBoxRef}
+                id="scas-approval"
+                onChange={this.checkBoxOnChange}
+                // checked="false"
               />
+              SCAS approved
             </label>
-            <label htmlFor="radio-no">
-              No
-              <input
-                type="radio"
-                onChange={this.radioOnChange}
-                checked={false}
-                ref={this.radioRef}
-                value="no"
-              />
-            </label>
-          </div>
 
-          {/* ------------------/ CHECK BOX /-------------------------------------------*/}
+            {/* ----------------------------FILE UPLOAD-------------------------------------*/}
 
-          <label htmlFor="scas-approval">
-            <input type="checkbox" id="scas-approval" onChange={this.checkboxOnChange} />
-            SCAS approved
-          </label>
-          {/* ------------------/ FILE UPLOAD /-------------------------------------------*/}
-          {/* <input
-            type="file"
-            ref={this.fileInputRef}
-            accept="image/*"
-            onChange={this.fileOnChangeHandler}
-            id="upload"
-          /> */}
-          <button type="submit">Create tour</button>
-        </form>
+            <input
+              type="file"
+              ref={this.fileInputRef}
+              accept="image/*"
+              onChange={this.fileOnChangeHandler}
+              id="upload"
+            />
+
+            <button type="submit">Create tour</button>
+          </form>
+        </div>
+        {/* <p>{selectedR}</p> */}
+        <TourCardsList data={this.state.dataFromForm} />
       </div>
     );
   }
