@@ -16,8 +16,7 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
-    project: 'tsconfig.json',
-    tsconfigRootDir: __dirname,
+    project: './tsconfig.json',
   },
   plugins: ['react', '@typescript-eslint', 'prettier'],
   rules: {
@@ -40,6 +39,7 @@ module.exports = {
     'linebreak-style': 0,
     '@typescript-eslint/comma-dangle': 'off',
     'react/prefer-stateless-function': 0,
+    'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
   },
   settings: {
     react: {

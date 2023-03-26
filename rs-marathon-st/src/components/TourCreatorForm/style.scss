@@ -1,5 +1,30 @@
 .form-page {
   height: 100vh;
+  align-items: center;
+
+  .popup__msg {
+    border: 5px dotted #85b6c7;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 400px;
+    height: 300px;
+    margin: 0 auto;
+    margin-top: 30px;
+    background-color: #f1f1f1;
+    border-radius: 15px;
+    img {
+      width: 100px;
+      height: 100px;
+    }
+    p {
+      text-align: center;
+      font-weight: 400;
+      font-size: 24px;
+    }
+  }
+
   .form-wrapper {
     margin: 0 auto;
     background-color: #85b6c7;
@@ -23,7 +48,6 @@
       align-items: center;
       box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
       background: rgb(255, 255, 255);
-      //   margin-bottom: 30px;
 
       h1 {
         font-weight: 400;
@@ -66,20 +90,40 @@
 
       .scas-approval {
         padding-top: 10px;
-        margin-bottom: 20px;
+        margin-bottom: 15px;
       }
 
       #upload {
-        margin-bottom: 10px;
-        padding-bottom: 20px;
+        margin-bottom: 15px;
+        // padding-bottom: 20px;
       }
-
-      button {
-        margin-bottom: 25px;
-        width: 150px;
-        height: 45px;
-        font-weight: 400;
-        border-radius: 5px;
+      .form__controls {
+        width: 250px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        button {
+          margin-bottom: 25px;
+          width: 150px;
+          height: 40px;
+          font-weight: 400;
+          border-radius: 5px;
+          cursor: pointer;
+          font-size: 15px;
+        }
+        button:hover {
+          background-color: #85b6c7;
+          color: white;
+        }
+        input {
+          width: 85px;
+          height: 40px;
+          border-radius: 5px;
+        }
+        input:hover {
+          color: red;
+          border: 1px dotted red;
+        }
       }
     }
   }

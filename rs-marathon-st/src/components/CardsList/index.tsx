@@ -14,7 +14,7 @@ export interface CardsListProps {
 
 function CardList(props: CardsListProps) {
   return (
-    <div className="cardList-wrapper">
+    <div className="cardList__wrapper">
       {props.data.map((el) => (
         <Card key={el.id} img={el.img} title={el.title} price={el.price} />
       ))}

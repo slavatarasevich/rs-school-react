@@ -1,14 +1,21 @@
 import React, { Component, createRef } from 'react';
 import './style.scss';
 
-import TourCardsList from '../TourCardsList';
+import TourCardsList from '../CardsTourList';
 
-class TourCreatorForm extends Component {
+type TourCreatorFormType = {
+  inputNameValue: string;
+  flagMsg: boolean;
+  flag: boolean;
+  imageSrc: null | object;
+};
+
+class TourCreatorForm extends Component<TourCreatorFormType, { undefined: unknown }> {
   private inputTourRef: React.RefObject<HTMLInputElement>;
 
   private inputDateRef: React.RefObject<HTMLInputElement>;
 
-  private selectValueRef: React.RefObject<HTMLInputElement>;
+  private selectValueRef: React.RefObject<HTMLInputElement> | null;
 
   private checkBoxRef: React.RefObject<HTMLInputElement>;
 
@@ -18,13 +25,17 @@ class TourCreatorForm extends Component {
 
   private inputFileRef: React.RefObject<HTMLInputElement>;
 
-  constructor(props) {
+  private typeTour: string[];
+
+  constructor(props: TourCreatorFormType | Readonly<TourCreatorFormType>) {
     super(props);
     this.state = {
       dataFromForm: [],
       selectedRadio: null,
       imageSrc: null,
+      flagMsg: false,
     };
+
     this.inputTourRef = createRef();
     this.inputDateRef = createRef();
     this.selectValueRef = createRef();
@@ -33,31 +44,30 @@ class TourCreatorForm extends Component {
     this.radio2Ref = createRef();
     this.inputFileRef = createRef();
     this.typeTour = ['Beach', 'Medical', 'Cultural', 'Adventure', 'WildLife'];
-    this.inputNameValue = '';
-    this.inputDateValue = '';
+  }
+
+  componentDidMount(): void {
+    this.forceUpdate();
   }
 
   onSubmit = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
+
+    const { dataFromForm, imageSrc, selectedRadio } = this.state;
     const inputNameValue = this.inputTourRef.current.value;
-    this.inputNameValue = inputNameValue;
+
     const inputDateValue = this.inputDateRef.current.value;
-    this.inputDateValue = inputDateValue;
+
     const selectValue = this.selectValueRef.current.value;
-    this.selectValue = selectValue;
+
     const checkBoxValue = this.checkBoxRef.current;
-    this.checkBoxValue = checkBoxValue;
-    const radioValue1 = this.radio1Ref.current;
-    this.radioValue1 = radioValue1;
-    const radioValue2 = this.radio2Ref.current;
-    this.radioValue2 = radioValue2;
-    const selectedR = this.state.selectedRadio;
-    this.selectedR = selectedR;
-    const imgPath = this.state.imageSrc;
-    this.imgPath = imgPath;
+
+    const selectedR = selectedRadio;
+
+    const imgPath = imageSrc;
 
     const updatedData = [
-      ...this.state.dataFromForm,
+      ...dataFromForm,
       {
         inputNameValue,
         inputDateValue,
@@ -71,6 +81,9 @@ class TourCreatorForm extends Component {
     this.setState({
       dataFromForm: updatedData,
     });
+
+    this.popup();
+    this.myFormRef.reset();
   };
 
   onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -111,8 +124,16 @@ class TourCreatorForm extends Component {
     }
   };
 
+  popup() {
+    this.setState({ flagMsg: true });
+    setTimeout(() => {
+      this.setState({ flagMsg: false });
+    }, 700);
+  }
+
   render() {
-    console.log(this.state.imageSrc);
+    const { flagMsg, dataFromForm } = this.state;
+
     return (
       <div className="form-page">
         <div className="form-wrapper">
@@ -128,9 +149,10 @@ class TourCreatorForm extends Component {
               ref={this.inputTourRef}
               onChange={this.onChangeInput}
               pattern="^[A-Z]+[a-zA-Z]*$"
-              required="required"
+              required
+              name="required"
             />
-            <input type="date" id="date" ref={this.inputDateRef} required="required" />
+            <input type="date" id="date" ref={this.inputDateRef} required name="required" />
 
             {/* ------------------/ DROP DOWN /--------------------------------------------*/}
 
@@ -194,16 +216,25 @@ class TourCreatorForm extends Component {
             <input
               type="file"
               ref={this.inputFileRef}
+              required
+              name="yes"
               accept="image/*"
               onChange={this.fileOnChangeHandler}
               id="upload"
             />
-
-            <button type="submit">Create tour</button>
+            <div className="form__controls">
+              <button type="submit">Create tour</button>
+              <input type="reset" value="Reset Form" />
+            </div>
           </form>
         </div>
-        {/* <p>{selectedR}</p> */}
-        <TourCardsList data={this.state.dataFromForm} />
+        {flagMsg ? (
+          <div className="popup__msg">
+            <p>New tour has been created...</p> <img src="./src/assets/imgs/checkmark.png" alt="" />
+          </div>
+        ) : (
+          <TourCardsList data={dataFromForm} />
+        )}
       </div>
     );
   }

@@ -5,6 +5,11 @@ import './style.scss';
 
 export interface TourCardsListProps {
   data: Array<{
+    checkBoxValue: string;
+    selectedR: string;
+    selectValue: string;
+    inputDateValue: string;
+    inputNameValue: string;
     title: string;
     date: string;
     type: string;
@@ -16,7 +21,7 @@ export interface TourCardsListProps {
 
 function TourCardsList(props: TourCardsListProps) {
   return (
-    <div className="cardList-wrapper">
+    <div className="cardList__wrapper_">
       {props.data.map((el, id) => (
         <TourCard
           key={id}

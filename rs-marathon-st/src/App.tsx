@@ -1,10 +1,10 @@
 import React, { Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
+import TourCreatorForm from './components/TourCreatorForm/index';
 
 const Home = React.lazy(() => import('./pages/Home/Home'));
 const About = React.lazy(() => import('./pages/About/About'));
-const TourCreatorForm = React.lazy(() => import('./components/TourCreatorForm/index'));
 const NotFound = React.lazy(() => import('./pages/NotFound/NotFound'));
 
 class App extends React.Component {
