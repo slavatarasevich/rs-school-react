@@ -14,6 +14,7 @@ class TourCard extends Component<Props> {
     return (
       <div className="tourCard-container">
         <h1>{this.props.title}</h1>
+        <img src={this.props.imgPath} alt="" />
         <div className="text-info">
           <p>Available from: {this.props.date}</p>
           <span>Tour type: {this.props.type}</span>
@@ -24,7 +25,6 @@ class TourCard extends Component<Props> {
             {this.props.scas ? 'SCAS approved' : 'Not approved by SCAS'}
           </span>
         </div>
-        <img src={this.props.imgPath} alt="" />
       </div>
     );
   }

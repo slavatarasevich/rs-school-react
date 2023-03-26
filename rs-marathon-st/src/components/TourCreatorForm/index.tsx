@@ -124,11 +124,13 @@ class TourCreatorForm extends Component {
             <input
               type="text"
               id="text"
-              placeholder="tour name"
+              placeholder="tour name (ex.: Milan)"
               ref={this.inputTourRef}
               onChange={this.onChangeInput}
+              pattern="^[A-Z]+[a-zA-Z]*$"
+              required="required"
             />
-            <input type="date" id="date" ref={this.inputDateRef} />
+            <input type="date" id="date" ref={this.inputDateRef} required="required" />
 
             {/* ------------------/ DROP DOWN /--------------------------------------------*/}
 
@@ -153,6 +155,7 @@ class TourCreatorForm extends Component {
                 Yes
                 <input
                   type="radio"
+                  required
                   name="radio-group"
                   value="Yes"
                   onChange={this.radioOnChange}
@@ -163,6 +166,7 @@ class TourCreatorForm extends Component {
                 No
                 <input
                   type="radio"
+                  required
                   name="radio-group"
                   value="No"
                   onChange={this.radioOnChange}
@@ -179,7 +183,8 @@ class TourCreatorForm extends Component {
                 ref={this.checkBoxRef}
                 id="scas-approval"
                 onChange={this.checkBoxOnChange}
-                // checked="false"
+                required
+                name="yes"
               />
               SCAS approved
             </label>
