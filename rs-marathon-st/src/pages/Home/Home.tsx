@@ -1,29 +1,33 @@
 /* eslint-disable react/destructuring-assignment */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import CardsList from '../../components/CardsList';
-import data from '../../mock/fakeData.json';
+import mock from '../../mock/fakeData';
 import './style.scss';
 
 type Data = { id: number; img: string; title: string; price: number }[];
 
 function Home() {
-  // eslint-disable-next-line @typescript-eslint/ban-types
+  const [inputValue, setInputValue] = useState('');
 
-  // componentDidMount() {
-  //   const keyInput = localStorage.getItem('keyInput');
-  //   this.setState({ value: keyInput ?? '' });
-  //   this.setState({ dataList: data });
-  // }
+  const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+  };
 
-  // componentWillUnmount() {
-  //   localStorage.setItem('keyInput', this.state.value);
-  // }
+  useEffect(() => {
+    return () => {
+      localStorage.setItem('keyInput', inputValue);
+    };
+  }, [inputValue]);
 
+  useEffect(() => {
+    const myKey = localStorage.getItem('keyInput');
+    setInputValue(myKey ?? '');
+  }, []);
   return (
     <div className="home-container">
       <h1>Home page</h1>
-      <input type="text" onChange={inputHandler} value={} placeholder="Search" />
-      <CardsList data={this.state.dataList} />
+      <input type="text" onChange={inputHandler} value={inputValue} placeholder="Search" />
+      <CardsList data={mock} />
     </div>
   );
 }

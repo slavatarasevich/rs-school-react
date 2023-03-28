@@ -1,4 +1,3 @@
-/* eslint-disable react/destructuring-assignment */
 import React from 'react';
 import Card from '../Card/index';
 import './style.scss';
