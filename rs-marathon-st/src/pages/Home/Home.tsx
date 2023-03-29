@@ -13,16 +13,18 @@ function Home() {
     setInputValue(e.target.value);
   };
 
-  useEffect(() => {
-    return () => {
+  useEffect(
+    () => () => {
       localStorage.setItem('keyInput', inputValue);
-    };
-  }, [inputValue]);
+    },
+    [inputValue]
+  );
 
   useEffect(() => {
     const myKey = localStorage.getItem('keyInput');
     setInputValue(myKey ?? '');
   }, []);
+
   return (
     <div className="home-container">
       <h1>Home page</h1>
