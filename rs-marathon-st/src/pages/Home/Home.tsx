@@ -6,7 +6,7 @@ import './style.scss';
 
 type Data = { id: number; img: string; title: string; price: number }[];
 
-function Home() {
+function Home(props: Data) {
   const [inputValue, setInputValue] = useState('');
 
   const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {

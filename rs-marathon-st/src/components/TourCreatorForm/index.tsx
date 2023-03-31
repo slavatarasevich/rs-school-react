@@ -1,7 +1,7 @@
 import React, { Component, createRef } from 'react';
 import './style.scss';
 
-import TourCardsList from '../CardsTourList';
+import TourCardsList from '../TourCardsList';
 
 type TourCreatorFormType = {
   inputNameValue: string;
