@@ -12,10 +12,13 @@
     "lint": "eslint --fix \"**/*.{ts,tsx}\""
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.43.9",
     "react-router-dom": "^6.9.0",
-    "sass": "^1.59.3"
+    "sass": "^1.59.3",
+    "yup": "^1.0.2"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 import './style.scss';
 
 type FormInputsType = {
@@ -13,43 +13,28 @@ type FormInputsType = {
 };
 
 const FormInputs: React.FC<FormInputsType> = ({ data, setData }) => {
-  const [inputTour, setInputTour] = useState('');
-  const [inputTourDate, setInputTourDate] = useState('');
-  const [typeTour, setTypeTour] = useState('');
-  const [radioInput, setRadioInput] = useState('');
-  const [checkBoxInput, setCheckBoxInput] = useState(false);
   const [fileInput, setFileInput] = useState('');
+  const [fileInputErr, setFileInputErr] = useState(false);
+  const tours = ['Beach', 'Medical', 'Cultural', 'Adventure', 'WildLife'];
+  const [popUp, setPopUp] = useState('');
 
-  const tours = ['select type of tour', 'Beach', 'Medical', 'Cultural', 'Adventure', 'WildLife'];
+  const {
+    register,
+    reset,
+    formState: { errors },
+    handleSubmit,
+  } = useForm();
 
-  const onSubmit = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
+  const onSubmit = (dataFromForm) => {
+    if (fileInput === '') {
+      setFileInputErr(true);
+    }
+    dataFromForm.fileInput = fileInput;
+    const newData = [...data, dataFromForm];
+    setData(newData);
 
-    const copyAllData = [
-      ...data,
-      { inputTour, inputTourDate, typeTour, radioInput, checkBoxInput, fileInput },
-    ];
-    setData(copyAllData);
-  };
-
-  const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputTour(e.target.value);
-  };
-
-  const onChangeInputDate = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputTourDate(e.target.value);
-  };
-
-  const typeTourHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTypeTour(e.target.value);
-  };
-
-  const radioOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setRadioInput(e.target.value);
-  };
-
-  const checkBoxOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCheckBoxInput(e.target.checked);
+    reset();
+    popup();
   };
 
   const fileOnChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -65,89 +50,82 @@ const FormInputs: React.FC<FormInputsType> = ({ data, setData }) => {
 
       reader.readAsDataURL(file);
     } else {
-      setFileInput('');
+      setFileInputErr(true);
     }
-    setInputTour('');
-    setInputTourDate('');
-    setTypeTour('');
   };
 
-  //   popup() {
-  //     this.setState({ flagMsg: true });
-  //     setTimeout(() => {
-  //       this.setState({ flagMsg: false });
-  //     }, 700);
-  //   }
+  function popup() {
+    setPopUp(true);
+    setTimeout(() => {
+      return setPopUp(false);
+    }, 700);
+  }
 
   return (
     <div className="form-inputs__container">
       <div className="form-wrapper">
-        <form onSubmit={onSubmit} id="form">
+        <form onSubmit={handleSubmit(onSubmit)} onReset={reset} id="form">
           <h1>Tour creator</h1>
-
           {/* ------------------/ INPUT NAME & DATE /------------------------------------*/}
-
           <input
-            type="text"
             id="text"
             placeholder="tour name (ex.: Milan)"
-            onChange={onChangeInput}
-            pattern="^[A-Z]+[a-zA-Z]*$"
-            value={inputTour}
+            {...register('inputTour', { required: true, pattern: /^[A-Z]+[a-zA-Z]*$/ })}
           />
-          <input type="date" id="date" value={inputTourDate} onChange={onChangeInputDate} />
-
-          {/* ------------------/ DROP DOWN /--------------------------------------------*/}
-
-          <select name="" id="dropdown__type-tour" value={typeTour} onChange={typeTourHandler}>
+          {errors?.inputTour && <p id="error">Cannot be empty, must start with capital letter</p>}
+          <input type="date" id="date" {...register('inputTourDate', { required: true })} />
+          {errors?.inputTourDate && <p id="error">Cannot be empty</p>}
+          {/* ------------------/ DROP DOWN /-------------------------------------------- */}
+          <select id="dropdown__type-tour" {...register('typeTour', { required: true })}>
             {tours.map((el, index) => (
               <option key={index} value={el}>
                 {el}
               </option>
             ))}
           </select>
-
+          {errors?.typeTour && <p id="error">Cannot be empty</p>}
           {/* ------------------/ Radio Buttons /--------------------------------------------*/}
-
           <div className="radio-group">
             <p>Kids are allowed?</p>
             <label htmlFor="radio-yes">
               Yes
-              <input type="radio" name={radioInput} value="yes" onChange={radioOnChange} />
+              <input type="radio" {...register('radioInput', { required: true })} value="yes" />
             </label>
             <label htmlFor="radio-no">
               No
-              <input type="radio" name={radioInput} value="no" onChange={radioOnChange} />
+              <input type="radio" {...register('radioInput', { required: true })} value="no" />
             </label>
           </div>
-
+          {errors?.radioInput && <p id="error">Make up your mind</p>}
           {/* ------------------/ Check box /--------------------------------------------*/}
-
           <label className="scas-approval" htmlFor="scas-approval">
             <input
               type="checkbox"
               id="scas-approval"
-              onChange={checkBoxOnChange}
-              value={checkBoxInput}
-              name="yes"
+              {...register('checkBoxInput', { required: true })}
             />
             SCAS approved
           </label>
-
+          {errors?.checkBoxInput && <p id="error">Please check this box</p>}
           {/* ----------------------------FILE UPLOAD-------------------------------------*/}
-
           <input
             type="file"
-            name="yes"
             accept="image/*"
+            {...register('image', { required: true })}
             onChange={fileOnChangeHandler}
             id="upload"
           />
+          {errors?.image && <p id="error">Please select an image</p>}
 
           <div className="form__controls">
             <button type="submit">Create tour</button>
           </div>
         </form>
+        {popUp ? (
+          <div className="popup__msg">
+            <p>New tour has been created...</p> <img src="./src/assets/imgs/checkmark.png" alt="" />
+          </div>
+        ) : null}
       </div>
     </div>
   );
