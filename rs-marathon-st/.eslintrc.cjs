@@ -40,6 +40,7 @@ module.exports = {
     'linebreak-style': 0,
     '@typescript-eslint/comma-dangle': 'off',
     'react/prefer-stateless-function': 0,
+    'react/jsx-props-no-spreading': 0,
     'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
   },
   settings: {

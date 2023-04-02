@@ -4,9 +4,9 @@ import CardsList from '../../components/CardsList';
 import mock from '../../mock/fakeData';
 import './style.scss';
 
-type Data = { id: number; img: string; title: string; price: number }[];
+// type Data = { id: number; img: string; title: string; price: number }[];
 
-function Home(props: Data) {
+function Home() {
   const [inputValue, setInputValue] = useState('');
 
   const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {

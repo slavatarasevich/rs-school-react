@@ -8,19 +8,17 @@ export interface Props {
   price: number;
 }
 
-class Card extends React.Component<Props> {
-  render() {
-    return (
-      <div className="card-container">
-        <img src={this.props.img} alt="" />
-        <h3>{this.props.title}</h3>
-        <p>
-          Price per tour:
-          <span>{` ${this.props.price}$`}</span>
-        </p>
-      </div>
-    );
-  }
+function Card(props: Props) {
+  return (
+    <div className="card-container">
+      <img src={props.img} alt="" />
+      <h3>{props.title}</h3>
+      <p>
+        Price per tour:
+        <span>{` ${props.price}$`}</span>
+      </p>
+    </div>
+  );
 }
 
 export default Card;

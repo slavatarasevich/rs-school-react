@@ -1,5 +1,4 @@
 /* eslint-disable react/destructuring-assignment */
-import React from 'react';
 import TourCard from '../TourCard';
 import './style.scss';
 
@@ -17,9 +16,9 @@ export interface TourCardsListProps {
 function TourCardsList({ data }) {
   return (
     <div className="cardList__wrapper_">
-      {data.map((el, id) => (
+      {data.map((el) => (
         <TourCard
-          key={id}
+          key={el.id}
           title={el.inputTour}
           date={el.inputTourDate}
           type={el.typeTour}

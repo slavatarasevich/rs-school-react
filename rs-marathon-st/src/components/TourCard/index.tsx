@@ -1,4 +1,3 @@
-import React, { Component } from 'react';
 import './style.scss';
 
 export interface Props {
@@ -11,6 +10,7 @@ export interface Props {
 }
 function TourCard(props: Props) {
   const { title, date, type, radioInput, scas, imgPath } = props;
+
   return (
     <div className="tourCard-container">
       <h1>{title}</h1>

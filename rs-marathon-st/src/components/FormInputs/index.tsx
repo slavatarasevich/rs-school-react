@@ -12,11 +12,12 @@ type FormInputsType = {
   file: object;
 };
 
-const FormInputs: React.FC<FormInputsType> = ({ data, setData }) => {
+const FormInputs: React.FC<FormInputsType> = (props) => {
   const [fileInput, setFileInput] = useState('');
-  const [fileInputErr, setFileInputErr] = useState(false);
   const tours = ['Beach', 'Medical', 'Cultural', 'Adventure', 'WildLife'];
   const [popUp, setPopUp] = useState('');
+
+  const { data, setData } = props;
 
   const {
     register,
@@ -25,10 +26,12 @@ const FormInputs: React.FC<FormInputsType> = ({ data, setData }) => {
     handleSubmit,
   } = useForm();
 
-  const onSubmit = (dataFromForm) => {
-    if (fileInput === '') {
-      setFileInputErr(true);
-    }
+  function popup() {
+    setPopUp(true);
+    setTimeout(() => setPopUp(false), 700);
+  }
+
+  const onSubmit = (dataFromForm: { fileInput: string }) => {
     dataFromForm.fileInput = fileInput;
     const newData = [...data, dataFromForm];
     setData(newData);
@@ -49,22 +52,13 @@ const FormInputs: React.FC<FormInputsType> = ({ data, setData }) => {
       };
 
       reader.readAsDataURL(file);
-    } else {
-      setFileInputErr(true);
     }
   };
-
-  function popup() {
-    setPopUp(true);
-    setTimeout(() => {
-      return setPopUp(false);
-    }, 700);
-  }
 
   return (
     <div className="form-inputs__container">
       <div className="form-wrapper">
-        <form onSubmit={handleSubmit(onSubmit)} onReset={reset} id="form">
+        <form onSubmit={handleSubmit(onSubmit)} onReset={reset} id="form__main">
           <h1>Tour creator</h1>
           {/* ------------------/ INPUT NAME & DATE /------------------------------------*/}
           <input
@@ -74,7 +68,7 @@ const FormInputs: React.FC<FormInputsType> = ({ data, setData }) => {
           />
           {errors?.inputTour && <p id="error">Cannot be empty, must start with capital letter</p>}
           <input type="date" id="date" {...register('inputTourDate', { required: true })} />
-          {errors?.inputTourDate && <p id="error">Cannot be empty</p>}
+          {errors?.inputTourDate && <p id="error">Select a date</p>}
           {/* ------------------/ DROP DOWN /-------------------------------------------- */}
           <select id="dropdown__type-tour" {...register('typeTour', { required: true })}>
             {tours.map((el, index) => (
@@ -96,7 +90,7 @@ const FormInputs: React.FC<FormInputsType> = ({ data, setData }) => {
               <input type="radio" {...register('radioInput', { required: true })} value="no" />
             </label>
           </div>
-          {errors?.radioInput && <p id="error">Make up your mind</p>}
+          {errors?.radioInput && <p id="error">Select either one</p>}
           {/* ------------------/ Check box /--------------------------------------------*/}
           <label className="scas-approval" htmlFor="scas-approval">
             <input
