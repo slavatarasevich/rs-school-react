@@ -3,21 +3,14 @@ import { useForm } from 'react-hook-form';
 import './style.scss';
 
 type FormInputsType = {
-  inputTour: string;
-  inputTourDate: string;
-  typeTour: string;
-  radioInput: string;
-  checkBoxInput: null | boolean;
-  fileInput: object;
-  file: object;
+  data: string;
+  setData: (value: string) => void;
 };
 
-const FormInputs: React.FC<FormInputsType> = (props) => {
+function FormInputs({ data, setData }: FormInputsType) {
   const [fileInput, setFileInput] = useState('');
-  const tours = ['Beach', 'Medical', 'Cultural', 'Adventure', 'WildLife'];
-  const [popUp, setPopUp] = useState('');
 
-  const { data, setData } = props;
+  const [popUp, setPopUp] = useState<boolean>(false);
 
   const {
     register,
@@ -32,8 +25,8 @@ const FormInputs: React.FC<FormInputsType> = (props) => {
   }
 
   const onSubmit = (dataFromForm: { fileInput: string }) => {
-    dataFromForm.fileInput = fileInput;
-    const newData = [...data, dataFromForm];
+    const newDataFromForm = { ...dataFromForm, fileInput };
+    const newData = [...data, newDataFromForm];
     setData(newData);
 
     reset();
@@ -71,13 +64,13 @@ const FormInputs: React.FC<FormInputsType> = (props) => {
           {errors?.inputTourDate && <p id="error">Select a date</p>}
           {/* ------------------/ DROP DOWN /-------------------------------------------- */}
           <select id="dropdown__type-tour" {...register('typeTour', { required: true })}>
-            {tours.map((el, index) => (
-              <option key={index} value={el}>
-                {el}
-              </option>
-            ))}
+            <option value="">--Select</option>
+            <option value="Beach">Beach</option>
+            <option value="Medical">Medical</option>
+            <option value="Cultural">Cultural</option>
+            <option value="Adventure">Adventure</option>
           </select>
-          {errors?.typeTour && <p id="error">Cannot be empty</p>}
+          {errors?.typeTour && <p id="error">Please select tour type</p>}
           {/* ------------------/ Radio Buttons /--------------------------------------------*/}
           <div className="radio-group">
             <p>Kids are allowed?</p>
@@ -123,6 +116,6 @@ const FormInputs: React.FC<FormInputsType> = (props) => {
       </div>
     </div>
   );
-};
+}
 
 export default FormInputs;

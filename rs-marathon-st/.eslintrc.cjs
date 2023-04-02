@@ -35,6 +35,7 @@ module.exports = {
     '@typescript-eslint/no-empty-function': 'off',
     '@typescript-eslint/no-explicit-any': 'error',
     '@typescript-eslint/no-var-reqiures': 'off',
+    'react/no-array-index-key': 0,
     'react/jsx-uses-react': 'off',
     'react/react-in-jsx-scope': 'off',
     'linebreak-style': 0,

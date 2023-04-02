@@ -8,17 +8,17 @@ export interface TourCardsListProps {
     inputTourDate: string;
     typeTour: string;
     radioInput: string;
-    scas: null | boolean;
-    imgPath: null | object;
+    checkBoxInput: null | boolean;
+    fileInput: null | object;
   }>;
 }
 
-function TourCardsList({ data }) {
+function TourCardsList({ data }: TourCardsListProps) {
   return (
     <div className="cardList__wrapper_">
-      {data.map((el) => (
+      {data.map((el, index) => (
         <TourCard
-          key={el.id}
+          key={index}
           title={el.inputTour}
           date={el.inputTourDate}
           type={el.typeTour}

@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "test": "vitest",
     "coverage": "vitest run --coverage",
-    "lint": "eslint --fix \"**/*.{ts,tsx}\""
+    "lint-fix": "eslint --fix \"**/*.{ts,tsx}\"",
+    "lint": "eslint . --ext .tsx"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.0.0",
