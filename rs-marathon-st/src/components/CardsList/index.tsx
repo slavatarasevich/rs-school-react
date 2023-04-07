@@ -10,11 +10,19 @@ export interface CardsListProps {
   }>;
 }
 
-function CardList({ data }) {
+function CardList({ data, setCharactorId }) {
   return (
     <div className="cardList__wrapper">
       {data.map((el, id) => (
-        <Card key={el.id} img={el.image} name={el.name} species={el.species} status={el.status} />
+        <Card
+          key={el.id}
+          id={el.id}
+          img={el.image}
+          name={el.name}
+          species={el.species}
+          status={el.status}
+          setCharactorId={setCharactorId}
+        />
       ))}
     </div>
   );

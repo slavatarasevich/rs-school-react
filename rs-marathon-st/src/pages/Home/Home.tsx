@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import CardsList from '../../components/CardsList';
+import FullCard from '../../components/FullCard';
 import './style.scss';
 
 function Home() {
@@ -9,6 +10,7 @@ function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const [allCharacters, setAllCharacters] = useState([]);
   const [characters, setCharacters] = useState([]);
+  const [charactorId, setCharactorId] = useState(null);
 
   useEffect(() => {
     (async () => {
@@ -33,32 +35,37 @@ function Home() {
 
   const handleKeyDown = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      const value = inputValue.toLowerCase();
-      const filteredCharacters = allCharacters.filter((character) =>
-        character.name.toLowerCase().includes(value)
-      );
-      setCharacters(filteredCharacters);
+      axios
+        .get(`https://rickandmortyapi.com/api/character/?name=${inputValue}`)
+        .then((data) => setCharacters(data.data.results));
     }
   };
 
   console.log(allCharacters);
   console.log(characters);
+  console.log(characters[0]);
 
   return (
-    <div className="home-container">
-      <h1>Home page</h1>
-      <div className="search-box">
-        <input
-          type="text"
-          onChange={inputHandler}
-          onKeyDown={handleKeyDown}
-          value={inputValue}
-          placeholder="character's name"
-        />
+    <>
+      <div className="home-container">
+        <h1>Home page</h1>
+        <div className="search-box">
+          <input
+            type="text"
+            onChange={inputHandler}
+            onKeyDown={handleKeyDown}
+            value={inputValue}
+            placeholder="character's name"
+          />
+        </div>
+        {isLoading && <h1>Loading...</h1>}
+        {charactorId ? (
+          <FullCard info={characters[charactorId]} closePopUp={setCharactorId} />
+        ) : (
+          <CardsList data={characters} setCharactorId={setCharactorId} />
+        )}
       </div>
-
-      {isLoading ? <span>Loading...</span> : <CardsList data={characters} />}
-    </div>
+    </>
   );
 }
 
