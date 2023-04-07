@@ -4,19 +4,18 @@ import './style.scss';
 
 export interface Props {
   img: string;
-  title: string;
-  price: number;
+  name: string;
+  species: string;
+  status: string;
 }
 
 function Card(props: Props) {
   return (
     <div className="card-container">
       <img src={props.img} alt="" />
-      <h3>{props.title}</h3>
-      <p>
-        Price per tour:
-        <span>{` ${props.price}$`}</span>
-      </p>
+      <h3>{props.name}</h3>
+      <p>{props.species}</p>
+      <span>{props.status}</span>
     </div>
   );
 }

@@ -3,19 +3,18 @@ import './style.scss';
 
 export interface CardsListProps {
   data: Array<{
-    id: number;
     img: string;
-    title: string;
-    price: number;
+    name: string;
+    species: string;
+    status: string;
   }>;
 }
 
-function CardList(props: CardsListProps) {
-  const { data } = props;
+function CardList({ data }) {
   return (
     <div className="cardList__wrapper">
-      {data.map((el) => (
-        <Card key={el.id} img={el.img} title={el.title} price={el.price} />
+      {data.map((el, id) => (
+        <Card key={el.id} img={el.image} name={el.name} species={el.species} status={el.status} />
       ))}
     </div>
   );
