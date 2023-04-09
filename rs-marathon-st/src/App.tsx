@@ -1,16 +1,18 @@
 import React, { Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
-import FormPage from './pages/Form';
 
-const Home = React.lazy(() => import('./pages/Home/Home'));
-const About = React.lazy(() => import('./pages/About/About'));
-const NotFound = React.lazy(() => import('./pages/NotFound/NotFound'));
+import Spinner from './components/Spinner';
+
+const Home = React.lazy(() => import('./pages/Home'));
+const About = React.lazy(() => import('./pages/About/'));
+const FormPage = React.lazy(() => import('./pages/Form/'));
+const NotFound = React.lazy(() => import('./pages/NotFound'));
 
 class App extends React.Component {
   render() {
     return (
-      <Suspense fallback={<>Loading...</>}>
+      <Suspense fallback={<Spinner />}>
         <div className="App">
           <Header />
           <Routes>

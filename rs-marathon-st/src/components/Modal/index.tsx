@@ -9,31 +9,24 @@ export interface Props {
 
 const Modal = ({ charId, closeModal }) => {
   const [info, setInfo] = useState('');
-  const [showSpinner, setShowSpinner] = useState(true);
 
   const clickHandler = () => {
     closeModal(false);
   };
-
-  console.log('modal render');
 
   async function fetchData() {
     let charactersData;
     try {
       const response = await fetch(`https://rickandmortyapi.com/api/character/${charId}`);
       charactersData = await response.json();
-      console.log(charactersData);
     } catch (error) {
       console.log(error, 'Slava!!!');
     }
     setInfo(charactersData);
-    setShowSpinner(false);
   }
-  console.log(info);
 
   useEffect(() => {
     fetchData();
-    setShowSpinner(false);
   }, []);
 
   if (info) {
