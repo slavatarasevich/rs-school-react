@@ -1,11 +1,11 @@
-import React from 'react';
 import './style.scss';
-const Notification = () => {
+
+function Notification() {
   return (
     <div className="overlay">
-      <div className="notification-content">Character wasn't found, please try another name</div>
+      <div className="notification-content">Character was not found, please try another name</div>
     </div>
   );
-};
+}
 
 export default Notification;

@@ -1,6 +1,6 @@
 import './style.scss';
 
-const Spinner = () => {
+function Spinner() {
   return (
     <div className="overlay">
       <div id="load">
@@ -14,6 +14,6 @@ const Spinner = () => {
       </div>
     </div>
   );
-};
+}
 
 export default Spinner;

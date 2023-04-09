@@ -29,8 +29,6 @@ function Home() {
 
       setAllCharacters(charactersData);
       setIsLoading(false);
-
-      return;
     })();
   }, []);
 
@@ -45,20 +43,18 @@ function Home() {
     setInputValue(e.target.value);
   };
 
-  const handleKeyDown = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.key === 'Enter') {
       axios
         .get(`https://rickandmortyapi.com/api/character/?name=${inputValue}`)
         .then((data) => setAllCharacters(data.data.results));
-      axios
-        .get(`https://rickandmortyapi.com/api/character/?name=${inputValue}`)
-        .catch(function (error) {
-          setShowNotification(true);
-          setInputValue('');
-          setTimeout(() => {
-            setShowNotification(false);
-          }, 1500);
-        });
+      axios.get(`https://rickandmortyapi.com/api/character/?name=${inputValue}`).catch(() => {
+        setShowNotification(true);
+        setInputValue('');
+        setTimeout(() => {
+          setShowNotification(false);
+        }, 1500);
+      });
     }
   };
 
@@ -81,11 +77,10 @@ function Home() {
         </div>
         {isLoading && <Spinner />}
         {showModal && <Modal charId={characterId} closeModal={setShowModal} />}
-        <CardsList data={allCharacters} openModal={setShowModal} charId={setCharacterId} />
+        <CardsList dataProps={allCharacters} openModal={setShowModal} charId={setCharacterId} />
       </div>
     );
-  } else {
-    <Spinner />;
   }
+  return <Spinner />;
 }
 export default Home;

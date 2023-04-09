@@ -2,11 +2,11 @@
 import './style.scss';
 
 export interface Props {
+  setId: number;
+  open: boolean;
   img: string;
   name: string;
-  species: string;
-  status: string;
-  id: number;
+  id: string;
 }
 
 function Card(props: Props) {
@@ -15,7 +15,6 @@ function Card(props: Props) {
       onClick={() => {
         props.open(true);
         props.setId(props.id);
-        console.log(props.id);
       }}
       className="card-container"
     >

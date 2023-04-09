@@ -4,12 +4,11 @@ import Spinner from '../Spinner';
 
 export interface Props {
   charId: number;
-  closeModal: any;
+  closeModal: boolean;
 }
 
-const Modal = ({ charId, closeModal }) => {
+function Modal({ charId, closeModal }) {
   const [info, setInfo] = useState('');
-
   const clickHandler = () => {
     closeModal(false);
   };
@@ -20,7 +19,7 @@ const Modal = ({ charId, closeModal }) => {
       const response = await fetch(`https://rickandmortyapi.com/api/character/${charId}`);
       charactersData = await response.json();
     } catch (error) {
-      console.log(error, 'Slava!!!');
+      alert(error);
     }
     setInfo(charactersData);
   }
@@ -71,9 +70,8 @@ const Modal = ({ charId, closeModal }) => {
         </div>
       </div>
     );
-  } else {
-    return <Spinner />;
   }
-};
+  return <Spinner />;
+}
 
 export default Modal;

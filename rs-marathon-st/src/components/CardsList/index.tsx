@@ -2,25 +2,25 @@ import Card from '../Card/index';
 import './style.scss';
 
 export interface CardsListProps {
-  data: Array<{
-    img: string;
+  dataProps: Array<{
+    id: string;
+    image: string;
     name: string;
-    species: string;
-    status: string;
   }>;
+  openModal: boolean;
+  charId: number;
 }
 
-function CardList({ data, openModal, charId }) {
+function CardList(props: CardsListProps) {
+  const { dataProps, openModal, charId } = props;
   return (
     <div className="cardList__wrapper">
-      {data.map((el, index) => (
+      {dataProps.map((el, index) => (
         <Card
           key={index}
           id={el.id}
           img={el.image}
           name={el.name}
-          species={el.species}
-          status={el.status}
           open={openModal}
           setId={charId}
         />

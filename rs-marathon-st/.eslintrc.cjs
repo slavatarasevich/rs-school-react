@@ -39,6 +39,7 @@ module.exports = {
     'react/jsx-uses-react': 'off',
     'react/react-in-jsx-scope': 'off',
     'linebreak-style': 0,
+    'jsx-a11y/no-static-element-interactions': 0,
     '@typescript-eslint/comma-dangle': 'off',
     'react/prefer-stateless-function': 0,
     'react/jsx-props-no-spreading': 0,
