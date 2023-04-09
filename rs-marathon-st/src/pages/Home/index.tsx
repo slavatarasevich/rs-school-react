@@ -21,8 +21,9 @@ function Home() {
       try {
         const response = await fetch('https://rickandmortyapi.com/api/character');
         charactersData = (await response.json()).results;
+        const myKey = localStorage.getItem('keyInput');
+        setInputValue(myKey ?? '');
       } catch (error) {
-        console.log(error);
         charactersData = [];
       }
 
@@ -33,7 +34,12 @@ function Home() {
     })();
   }, []);
 
-  console.log(allCharacters);
+  useEffect(
+    () => () => {
+      localStorage.setItem('keyInput', inputValue);
+    },
+    [inputValue]
+  );
 
   const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
