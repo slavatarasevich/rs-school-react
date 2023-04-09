@@ -1,6 +1,6 @@
-import React from 'react';
 import './style.scss';
-function Spinner() {
+
+const Spinner = () => {
   return (
     <div className="overlay">
       <div id="load">
@@ -14,6 +14,6 @@ function Spinner() {
       </div>
     </div>
   );
-}
+};
 
 export default Spinner;

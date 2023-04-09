@@ -13,15 +13,14 @@ function Card(props: Props) {
   return (
     <div
       onClick={() => {
-        props.setCharactorId(props.id - 1);
+        props.open(true);
+        props.setId(props.id);
         console.log(props.id);
       }}
       className="card-container"
     >
       <img src={props.img} alt="" />
       <h3>{props.name}</h3>
-      <p>{props.species}</p>
-      <span>{props.status}</span>
     </div>
   );
 }

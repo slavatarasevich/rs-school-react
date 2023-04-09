@@ -15,14 +15,52 @@
     border-radius: 3px;
     max-width: 600px;
     min-width: 300px;
-  }
-  .btn-close {
-    position: relative;
-    top: -60px;
-    right: 35px;
-    width: 25px;
-    cursor: pointer;
-    background-color: #fae73f;
-    text-align: center;
+
+    .btn {
+      display: flex;
+      justify-content: end;
+      .btn-close {
+        width: 30px;
+        cursor: pointer;
+        background-color: #fae73f;
+        text-align: center;
+      }
+      .btn-close:hover {
+        background-color: #bf82e7;
+      }
+    }
+    .header-content {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      span {
+        color: red;
+      }
+      .header-name__id {
+        padding-left: 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        // align-items: flex-start;
+        p {
+          font-weight: 400;
+          font-size: 30px;
+          // text-align: center;
+        }
+        span {
+          color: #bf82e7;
+        }
+      }
+    }
+    .main-content {
+      p {
+        color: rgb(114, 116, 116);
+        font-size: 10px;
+      }
+      span {
+        font-size: 15px;
+        color: #050505;
+      }
+    }
   }
 }

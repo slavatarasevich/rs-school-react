@@ -10,18 +10,19 @@ export interface CardsListProps {
   }>;
 }
 
-function CardList({ data, setCharactorId }) {
+function CardList({ data, openModal, charId }) {
   return (
     <div className="cardList__wrapper">
-      {data.map((el, id) => (
+      {data.map((el, index) => (
         <Card
-          key={el.id}
+          key={index}
           id={el.id}
           img={el.image}
           name={el.name}
           species={el.species}
           status={el.status}
-          setCharactorId={setCharactorId}
+          open={openModal}
+          setId={charId}
         />
       ))}
     </div>

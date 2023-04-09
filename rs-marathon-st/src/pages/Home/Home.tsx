@@ -1,18 +1,18 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import './style.scss';
 import Spinner from '../../components/Spinner';
 import CardsList from '../../components/CardsList';
-import FullCard from '../../components/Modal';
-import './style.scss';
 import Modal from '../../components/Modal';
 
 function Home() {
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(true);
+  const [showModal, setShowModal] = useState(false);
   const [allCharacters, setAllCharacters] = useState([]);
   const [characters, setCharacters] = useState([]);
-  const [characterId, setCharacterId] = useState(null);
+  const [characterId, setCharacterId] = useState('');
 
   useEffect(() => {
     (async () => {
@@ -28,8 +28,12 @@ function Home() {
       setAllCharacters(charactersData);
       setCharacters(charactersData);
       setIsLoading(false);
+
+      return;
     })();
   }, []);
+
+  console.log(allCharacters);
 
   const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -39,35 +43,28 @@ function Home() {
     if (e.key === 'Enter') {
       axios
         .get(`https://rickandmortyapi.com/api/character/?name=${inputValue}`)
-        .then((data) => setCharacters(data.data.results));
+        .then((data) => setAllCharacters(data.data.results));
     }
+    setCharacters(allCharacters);
   };
-
   console.log(allCharacters);
-  console.log(characters);
-  console.log(characters[0]);
-
+  console.log(characterId);
   return (
-    <>
-      <div className="home-container">
-        <h1>Home page</h1>
-        <div className="search-box">
-          <input
-            type="text"
-            onChange={inputHandler}
-            onKeyDown={handleKeyDown}
-            value={inputValue}
-            placeholder="character's name"
-          />
-        </div>
-        {/* {isLoading && <span>HI</span>} */}
-        {characterId ? (
-          <Modal info={characters[characterId]} closePopUp={setCharacterId} />
-        ) : (
-          <CardsList data={characters} setCharactorId={setCharacterId} />
-        )}
+    <div className="home-container">
+      <h1>Home page</h1>
+      <div className="search-box">
+        <input
+          type="text"
+          onChange={inputHandler}
+          onKeyDown={handleKeyDown}
+          value={inputValue}
+          placeholder="character's name"
+        />
       </div>
-    </>
+      {isLoading && <Spinner />}
+      {showModal && <Modal charId={characterId} closeModal={setShowModal} />}
+      <CardsList data={allCharacters} openModal={setShowModal} charId={setCharacterId} />
+    </div>
   );
 }
 
