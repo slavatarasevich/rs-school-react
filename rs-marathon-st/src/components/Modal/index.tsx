@@ -1,18 +1,18 @@
 import './style.scss';
 
-export interface IFullCard {
+export interface Props {
   info: { id: number; name: string; status: string };
   setAction: any;
 }
 
-const FullCard = ({ info, closePopUp }) => {
+const Modal = ({ info, closePopUp }) => {
   const clickHandler = () => {
     closePopUp(null);
   };
 
   return (
-    <div className="full-card__container">
-      <div className="info">
+    <div className="overlay" onClick={clickHandler}>
+      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <span>id: {info.id}</span>
         <p>Name: {info.name}</p>
         <p>Status: {info.status}</p>
@@ -24,4 +24,4 @@ const FullCard = ({ info, closePopUp }) => {
   );
 };
 
-export default FullCard;
+export default Modal;

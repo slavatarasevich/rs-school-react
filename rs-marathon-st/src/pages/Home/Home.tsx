@@ -1,16 +1,18 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import Spinner from '../../components/Spinner';
 import CardsList from '../../components/CardsList';
-import FullCard from '../../components/FullCard';
+import FullCard from '../../components/Modal';
 import './style.scss';
+import Modal from '../../components/Modal';
 
 function Home() {
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [allCharacters, setAllCharacters] = useState([]);
   const [characters, setCharacters] = useState([]);
-  const [charactorId, setCharactorId] = useState(null);
+  const [characterId, setCharacterId] = useState(null);
 
   useEffect(() => {
     (async () => {
@@ -58,11 +60,11 @@ function Home() {
             placeholder="character's name"
           />
         </div>
-        {isLoading && <h1>Loading...</h1>}
-        {charactorId ? (
-          <FullCard info={characters[charactorId]} closePopUp={setCharactorId} />
+        {/* {isLoading && <span>HI</span>} */}
+        {characterId ? (
+          <Modal info={characters[characterId]} closePopUp={setCharacterId} />
         ) : (
-          <CardsList data={characters} setCharactorId={setCharactorId} />
+          <CardsList data={characters} setCharactorId={setCharacterId} />
         )}
       </div>
     </>
